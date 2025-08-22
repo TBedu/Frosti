@@ -5,10 +5,10 @@ import MainCard from "@/components/MainCard.astro";
 import GitHubStats from "@/components/mdx/GitHubStats.astro";
 ---
 
-<BaseLayout title="About">
+<BaseLayout title="关于">
   <MainCard
-    title="About SunMaple"
-    description="Developer, open-source enthusiast, and creator of the Frosti blog theme."
+    title="About FeltSquirrel727"
+    description="开发者 & 开源爱好者"
     textOverlay="ABOUT"
     infoIcon="lucide:user"
   >
@@ -19,17 +19,17 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           <div
             class="w-32 h-32 md:w-40 md:h-40 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden"
           >
-            <img src="https://github.com/EveSunMaple.png" alt="SunMaple" width="160" height="160" loading="eager" />
+            <img src="/profile.png" alt="FeltSquirrel727" width="160" height="160" loading="eager" />
           </div>
         </div>
 
         <div class="flex-1 text-center md:text-left">
-          <h1 class="text-3xl md:text-4xl font-bold mb-2">SunMaple</h1>
-          <p class="text-xl text-base-content/80 mb-4">Developer & Open-Source Enthusiast</p>
+          <h1 class="text-3xl md:text-4xl font-bold mb-2">FeltSquirrel727</h1>
+          <p class="text-xl text-base-content/80 mb-4">开发者 & 开源爱好者</p>
 
           <div class="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
             <a
-              href="https://github.com/EveSunMaple"
+              href="https://github.com/TBedu"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-sm btn-outline gap-2"
@@ -38,26 +38,59 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
               <span>GitHub</span>
             </a>
             <a
-              href="https://twitter.com/EveSunMaple"
+              href="https://www.youtube.com/@FeltSquirrel727"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-sm btn-outline gap-2"
             >
-              <Icon name="lucide:twitter" class="w-4 h-4" />
-              <span>Twitter</span>
+              <Icon name="lucide:youtube" class="w-4 h-4" />
+              <span>YouTube</span>
             </a>
-            <a href="mailto:evesunmaple@outlook.com" class="btn btn-sm btn-outline gap-2">
+            <a href="mailto:tbeducn@gmail.com" class="btn btn-sm btn-outline gap-2">
+
               <Icon name="lucide:mail" class="w-4 h-4" />
               <span>Email</span>
             </a>
           </div>
 
           <p class="text-base-content/80">
-            Hello! I'm SunMaple, a passionate developer focused on creating elegant, responsive, and efficient web
-            applications. I'm the creator of the Frosti blog theme, a modern Astro-based theme for content creators. I
-            love contributing to open-source projects and building tools that help others create beautiful digital
-            experiences.
+            你好！我是 FeltSquirrel727，一名热爱生活、热爱编程的高中学生。我是开源项目 MCStatus API 的开发者，也曾为 AKAMS.CN 定制过 Waline 评论系统，我喜欢为开源项目做贡献，也喜欢制作能帮助他人创造美好的工具。
           </p>
+        </div>
+      </section>
+
+      <!-- Personal Introduction -->
+      <section class="space-y-6 text-base-content/80">
+        <div>
+          <h3 class="text-xl font-semibold mb-2 flex items-center gap-2">
+            <Icon name="lucide:user" class="w-5 h-5 text-primary" />
+            <span>简介</span>
+          </h3>
+          <p>我是一名高中学生。在这个快节奏的世界里，我偏爱寻找那一份宁静，享受美食、畅饮、游戏和娱乐带来的简单快乐。</p>
+          <p class="mt-2">当然，编程是我生活中不可或缺的一部分，它让我能够将创意转化为现实，用代码编织梦想。</p>
+          <p class="mt-2">在这个充满竞争的环境中，我找到了自己的小角落，可以躺平享受生活。我的爱好广泛，从乒乓球、声乐、魔方到下棋，虽然随着初中生活的忙碌，许多爱好已经渐渐淡出我的生活，但乒乓球和编程始终是我不变的热爱。</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-2 flex items-center gap-2">
+            <Icon name="lucide:school" class="w-5 h-5 text-primary" />
+            <span>我和学校</span>
+          </h3>
+          <p>在学校，我享受着与同学们的相处时光，虽然成绩并不是很好，但我依然能够稳定在班级中下水平，我希望能够继续努力，更上一层楼。学习对我来说，本就是一件充满乐趣的事情。</p>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-2 flex items-center gap-2">
+            <Icon name="lucide:code" class="w-5 h-5 text-primary" />
+            <span>我和编程</span>
+          </h3>
+          <p>编程是我探索世界的窗口。最初接触Python时，我被它简洁优雅的语法所吸引，而Kitten作为我的图形化编程语言，让我在编程的世界里更加得心应手。我精通Kitten，它们让我在解决问题和创造新事物时更加高效和有趣。我通过研究和实践，不断深化我的编程技能，并在编程猫社区上分享我写的小游戏和项目。</p>
+          <p class="mt-2">尽管因为学业压力，我曾暂时放下编程，但进入初中后，我又重新投入到编程的世界中。由于找不到灵感，我会尝试复刻现成的游戏。比如我复刻过 Among Us ，但是因为图形化编程难以实现其前后端逻辑，于是放弃了。我还复刻过覆盖之爱，正在尝试，预发布：<a href="https://shequ.codemao.cn/work/236297062" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">https://shequ.codemao.cn/work/236297062</a>。</p>
+        </div>
+
+        <div>
+          <p>这个博客是我分享编程旅程、技术探索和生活趣事的地方。如果你对技术充满好奇，或者只是想要寻找一些轻松愉快的阅读材料，那么请随意浏览，希望我的分享能给你带来启发和乐趣。</p>
+          <p class="mt-2 italic">生活不只有代码，还有诗和远方。让我们在这个多彩的世界里，一起享受这段旅程。</p>
         </div>
       </section>
 
@@ -65,17 +98,17 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
       <section>
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
           <Icon name="lucide:github" class="w-6 h-6 text-primary" />
-          <span>GitHub Statistics</span>
+          <span>GitHub 统计信息</span>
         </h2>
 
-        <GitHubStats username="EveSunMaple" showLanguages={false} showCommitGraph={true} />
+        <GitHubStats username="TBedu" showLanguages={false} showCommitGraph={true} />
       </section>
 
       <!-- Tech Stack -->
-      <section>
+      <!-- <section>
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
           <Icon name="lucide:code-2" class="w-6 h-6 text-primary" />
-          <span>Tech Stack</span>
+          <span>技术栈</span>
         </h2>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -103,13 +136,13 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
             ))
           }
         </div>
-      </section>
+      </section>-->
 
       <!-- Contribution Activity -->
-      <section>
+      <!--<section>
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
           <Icon name="lucide:activity" class="w-6 h-6 text-primary" />
-          <span>Recent Activity</span>
+          <span>最近活动</span>
         </h2>
 
         <div class="bg-base-200 rounded-xl p-6 overflow-x-auto">
@@ -117,24 +150,24 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
             {
               [
                 {
-                  date: "January 2024",
-                  title: "Open Source Contributions",
-                  desc: "Contributed to several open source projects, focusing on performance optimizations.",
+                  date: "2024年1月",
+                  title: "开源项目贡献",
+                  desc: "为多个开源项目做出贡献，专注于性能优化。",
                 },
                 {
-                  date: "March 2024",
-                  title: "Initiated Frosti Project",
-                  desc: "Started development of the Frosti blog theme for Astro, focusing on modern design principles.",
+                  date: "2024年3月",
+                  title: "启动Frosti项目",
+                  desc: "开始为Astro开发Frosti博客主题，专注于现代设计原则。",
                 },
                 {
-                  date: "July 2024",
-                  title: "Released Frosti v2",
-                  desc: "Published version 2 with improved responsive design and extended plugin support.",
+                  date: "2024年7月",
+                  title: "发布Frosti v2",
+                  desc: "发布了版本2，改进了响应式设计并扩展了插件支持。",
                 },
                 {
-                  date: "March 2025",
-                  title: "Released Frosti v3",
-                  desc: "Launched version 3 of the Frosti blog theme with enhanced performance and new customization options.",
+                  date: "2025年3月",
+                  title: "发布Frosti v3",
+                  desc: "推出了Frosti博客主题的版本3，增强了性能并提供了新的自定义选项。",
                 },
               ].map((item, i) => (
                 <div class="relative flex gap-4 pb-2 md:pb-0 md:min-w-[250px]">
@@ -154,7 +187,7 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
             }
           </div>
         </div>
-      </section>
+      </section>-->
     </div>
   </MainCard>
 </BaseLayout>

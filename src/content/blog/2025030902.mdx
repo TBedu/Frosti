@@ -1,0 +1,258 @@
+---
+title: "SRS直播服务器搭建完全指南"
+description: "从零开始搭建高效稳定的SRS直播服务器，支持RTMP、WebRTC、HLS等多种协议，包含Docker部署与源码编译两种方式"
+pubDate: "2025-03-09"
+image: https://ossrs.net/lts/zh-cn/img/srs-200x200.png
+categories:
+  - 技术
+tags:
+  - SRS
+  - 直播服务器
+  - 流媒体
+  - Docker
+  - 音视频
+---
+
+## 什么是 SRS？
+SRS（Simple RTMP Server）是一款开源（MIT协议）、高性能的实时流媒体服务器，专注于提供简单高效的直播服务解决方案。它支持多种主流流媒体协议，包括RTMP、WebRTC、HLS、HTTP-FLV、SRT、MPEG-DASH和GB28181等，适用于各种直播场景。
+
+> **扩展阅读**
+> 如需了解更多SRS的技术细节和功能特性，可访问[SRS官方文档](https://ossrs.net/lts/zh-cn/docs/v6/doc/introduction)。
+
+## 部署方案概述
+
+本文将详细介绍两种SRS服务器的部署方式：
+1. **Docker部署**：适合快速上手，操作简便
+2. **源代码编译部署**：适合需要自定义配置或深度优化的场景
+
+## Docker 部署
+
+Docker部署是启动SRS最简单高效的方式，特别适合初学者和快速部署场景。
+
+推荐使用Docker启动SRS，这是最简单也是最方便的方式。
+
+### 环境准备
+- **操作系统**：推荐使用 Linux 系统（如 Ubuntu 20.04、CentOS 7 或更高版本），也支持 Windows 和 macOS 下的 Docker 环境
+- **硬件要求**：根据并发规模调整，基础配置建议至少 2 核 CPU、4GB 内存
+- **网络环境**：确保服务器具备稳定的公网或内网连接，并提前规划需要开放的端口
+
+### 安装 Docker（以 Ubuntu 为例）
+1. **更新系统软件包**：
+   ```bash
+   sudo apt-get update
+   sudo apt-get upgrade -y
+   ```
+2. **安装 Docker**：
+   ```bash
+   sudo apt-get install -y docker.io
+   ```
+3. **启动 Docker 服务并设置开机自启**：
+   ```bash
+   sudo systemctl start docker
+   sudo systemctl enable docker
+   ```
+4. **验证 Docker 安装**：
+   ```bash
+   docker --version
+   ```
+
+<info>提示：如果使用 CentOS 系统，可以使用 `sudo yum install docker` 命令安装 Docker。</info>
+
+### 拉取 SRS Docker 镜像
+```bash
+docker pull ossrs/srs:latest
+```
+
+<info>提示：如需指定版本，可使用类似 `docker pull ossrs/srs:v6.0` 的命令拉取特定版本。</info>
+
+### 创建并运行 SRS 容器
+```bash
+docker run -d --name srs_server -p 1935:1935 -p 1985:1985 -p 8080:8080 ossrs/srs:latest
+```
+
+各端口功能说明：
+- `1935`：RTMP 协议默认端口，用于推流和基础拉流
+- `1985`：SRS API 端口，用于服务器管理和控制
+- `8080`：Web 控制台端口，提供图形化管理界面和演示页面
+
+<info>提示：如需支持更多协议（如 HLS、WebRTC），请根据需要映射相应端口。</info>
+
+### 验证 SRS 运行状态
+1. **查看容器运行状态**：
+   ```bash
+   docker ps
+   ```
+   确认名为 `srs_server` 的容器状态为 `Up` 状态，表示服务正常运行。
+
+2. **访问 SRS Web 控制台**：
+   打开浏览器，输入 `http://your_server_ip:8080/`（将 `your_server_ip` 替换为你的服务器实际 IP），即可访问 SRS 控制台界面，查看服务器状态和进行基本操作。
+
+### 自定义 SRS 配置（可选）
+如果需要根据实际需求调整 SRS 配置，可以按以下步骤操作：
+
+1. **停止并删除现有容器**（如有必要）：
+   ```bash
+   docker stop srs_server
+   docker rm srs_server
+   ```
+
+2. **复制默认配置文件到本地**：
+   ```bash
+   docker run --rm -v $(pwd):/tmp ossrs/srs:latest cp /usr/local/srs/conf/srs.conf /tmp/
+   ```
+
+3. **编辑配置文件**：
+   ```bash
+   vi srs.conf
+   ```
+   根据需求修改配置参数，如监听端口、日志级别、转码设置等。
+
+4. **使用自定义配置启动容器**：
+   ```bash
+   docker run -d --name srs_server -p 1935:1935 -p 1985:1985 -p 8080:8080 -v $(pwd)/srs.conf:/usr/local/srs/conf/srs.conf ossrs/srs:latest
+   ```
+
+<warning>注意：修改配置后需重启容器才能使配置生效。</warning>
+
+### 推流与拉流测试
+
+#### 推流测试
+1. **下载并安装 OBS Studio**：访问 [OBS 官网](https://obsproject.com/) 下载适合你系统的版本。
+2. **配置推流参数**：
+   - 打开 OBS Studio，进入 "设置" > "推流"
+   - 服务选择 "自定义"
+   - 服务器填写 `rtmp://your_server_ip/live`
+   - 推流密钥填写一个自定义的流名称，如 `test_stream`
+3. **开始推流**：点击 "开始推流" 按钮。
+
+#### 拉流测试
+1. **使用 VLC 播放器**：
+   - 打开 VLC，点击 "媒体" > "打开网络串流"
+   - 输入 `rtmp://your_server_ip/live/test_stream` 或 `http://your_server_ip:8080/live/test_stream.flv`
+   - 点击 "播放" 开始观看直播
+
+2. **使用浏览器**：
+   - 直接访问 `http://your_server_ip:8080/live/test_stream.flv`
+   - 或通过 SRS 控制台的演示页面观看
+
+## 源代码编译部署
+
+对于需要深度定制或特殊优化的场景，源代码编译部署是更好的选择。下面详细介绍编译安装过程：
+
+### 环境准备
+- **操作系统**：推荐使用 Linux 系统（Ubuntu 20.04、CentOS 7 或更高版本），也支持 Windows 和 macOS
+- **硬件要求**：根据直播规模和并发量调整，基础配置建议 2 核 CPU、4GB 内存
+- **网络环境**：稳定的网络连接，开放必要的端口（1935、1985、8080 等）
+- **依赖项**：需要安装编译工具和相关依赖库
+
+### 安装 SRS（以 Ubuntu 为例）
+1. **更新系统软件包**：
+   ```bash
+   sudo apt-get update
+   sudo apt-get upgrade -y
+   ```
+2. **安装编译依赖**：
+   ```bash
+   sudo apt-get install -y build-essential git
+   ```
+3. **克隆 SRS 仓库**：
+   ```bash
+   # 从 GitHub 克隆
+   git clone https://github.com/ossrs/srs.git
+   
+   # 如果 GitHub 访问较慢，可以使用 Gitee 镜像
+   # git clone https://gitee.com/ossrs/srs.git
+   ```
+4. **进入 SRS 目录并编译安装**：
+   ```bash
+   cd srs/trunk
+   ./configure
+   make
+   sudo make install
+   ```
+
+<info>提示：编译过程可能需要较长时间，具体取决于服务器性能。</info>
+
+### 配置与启动 SRS 服务器
+1. **编辑配置文件**：
+   ```bash
+   vi /usr/local/srs/conf/srs.conf
+   ```
+   根据需求配置服务器参数，以下是一些常用配置项示例：
+   ```conf
+   # 服务器域名（可选）
+   srs.app.domain = your_domain.com
+   
+   # HTTP 服务配置
+   srs.http.port = 8080
+   
+   # RTMP 服务配置
+   srs.rtmp.port = 1935
+   
+   # HLS 服务配置
+   srs.hls.port = 80
+   srs.hls.mount = [vhost]/[app]/[stream].m3u8
+   ```
+
+2. **启动 SRS 服务器**：
+   ```bash
+   # 前台启动（调试用）
+   /usr/local/srs/objs/srs -c /usr/local/srs/conf/srs.conf
+   
+   # 后台启动（生产环境）
+   /usr/local/srs/etc/init.d/srs start
+   
+   # 设置开机自启
+   sudo ln -s /usr/local/srs/etc/init.d/srs /etc/init.d/srs
+   sudo update-rc.d srs defaults
+   ```
+
+3. **检查 SRS 运行状态**：
+   - **Web 方式**：访问 `http://your_server_ip:8080/` 查看控制台
+   - **命令行方式**：
+     ```bash
+     /usr/local/srs/etc/init.d/srs status
+     ```
+   - **日志查看**：
+     ```bash
+     tail -f /usr/local/srs/objs/srs.log
+     ```
+
+### 推流与拉流测试
+
+#### 推流测试
+使用 OBS Studio 或其他推流工具，配置推流地址为 `rtmp://your_server_ip/live/stream_name`，其中 `stream_name` 是你自定义的流名称。
+
+#### 拉流测试
+根据不同的协议，可以通过以下方式拉流观看：
+
+1. **RTMP 拉流**：
+   ```
+   rtmp://your_server_ip/live/stream_name
+   ```
+
+2. **HTTP-FLV 拉流**：
+   ```
+   http://your_server_ip:8080/live/stream_name.flv
+   ```
+
+3. **HLS 拉流**（如果已配置）：
+   ```
+   http://your_server_ip:8080/live/stream_name.m3u8
+   ```
+
+可以使用 VLC 播放器、浏览器或专业的流媒体测试工具进行拉流测试。
+
+---
+
+## 生产环境建议
+
+在将 SRS 部署到生产环境时，建议考虑以下几点优化：
+
+1. **硬件优化**：根据并发量和视频质量需求，适当增加服务器 CPU 核心数和内存容量
+2. **网络优化**：使用高性能网络设备，考虑 CDN 分发以提高全球访问速度
+3. **存储优化**：配置适当的存储策略，对重要直播内容进行录制备份
+4. **安全优化**：设置访问控制、防盗链机制，配置 SSL/TLS 加密传输
+5. **监控维护**：部署监控系统，定期查看日志，及时处理异常情况
+
+通过合理配置和优化，SRS 可以为各种规模的直播应用提供稳定可靠的服务支持。

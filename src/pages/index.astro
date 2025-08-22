@@ -2,180 +2,103 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 import MainCard from "@/components/MainCard.astro";
-import FeatureCard from "@/components/mdx/FeatureCard.astro";
-import GitHubStats from "@/components/mdx/GitHubStats.astro";
+import LinkCard from "@/components/mdx/LinkCard.astro";
 ---
 
-<BaseLayout title="Home">
+<BaseLayout title="主页">
   <MainCard
-    title="Welcome to Frosti"
-    description="A modern, responsive, feature-rich blog theme for Astro with dark/light mode and customizable options."
+    title="Hi there! 👋"
+    description="欢迎来到 FeltSquirrel727 的个人网站"
     textOverlay="HOME"
     infoIcon="lucide:info"
   >
-    <div class="space-y-8">
+    <div class="space-y-12">
       <!-- Hero Section -->
       <section class="py-6">
         <div class="flex flex-col items-center text-center">
           <h1
             class="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-loose"
           >
-            🌟 Frosti Blog Theme
+            我是 FeltSquirrel727
           </h1>
-          <p class="text-xl text-base-content/80 max-w-3xl mb-8">
-            A minimal, responsive, and feature-rich Astro blog theme designed for creators who value beautiful content
-            presentation and exceptional performance.
+          <p class="text-xl text-base-content/80 max-w-3xl mb-6">
+            欢迎来到我的小天地。我是一名热爱生活、热爱编程的高中学生
           </p>
-          <div class="flex flex-wrap gap-4 justify-center">
-            <a href="/blog" class="btn btn-primary gap-2 btn-shine-effect">
-              <Icon name="lucide:book-open" class="w-5 h-5" />
-              <span>Explore Blog</span>
-            </a>
-            <a href="https://github.com/EveSunMaple/Frosti" target="_blank" class="btn btn-outline gap-2">
-              <Icon name="lucide:github" class="w-5 h-5" />
-              <span>Star on GitHub</span>
-            </a>
-          </div>
+          <p class="text-xl text-base-content/80 max-w-3xl mb-8">
+            生活不只有代码，还有诗和远方。<br/>
+            让我们一起享受这段旅程吧！
+          </p>
+          <blockquote class="italic border-l-4 border-primary pl-4 py-2 text-base-content/80 max-w-2xl mb-8">
+            你的存在，则是我胸前心跳里五色的绚彩<br/>
+            Your presence is in the heartbeat of my chest. The colorful splendor of five colors.
+          </blockquote>
         </div>
       </section>
 
-      <!-- Features Section -->
+      <!-- Navigation Section -->
       <section class="py-6">
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-          <Icon name="lucide:sparkles" class="w-6 h-6 text-primary" />
-          <span>Features</span>
+          <Icon name="lucide:compass" class="w-6 h-6 text-primary" />
+          <span>导航</span>
         </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <FeatureCard
-            title="Responsive Design"
-            description="Fully responsive design that looks great on all devices from mobile to desktop."
-            icon="lucide:smartphone"
-            color="oklch(0.7 0.2 30)"
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <LinkCard
+            title="博客"
+            desc="想到的与看到的"
+            url="/blog"
+            icon="lucide:book"
           />
 
-          <FeatureCard
-            title="Dark/Light Mode"
-            description="Toggle between light and dark themes with a beautiful transition effect."
-            icon="lucide:moon"
-            color="oklch(0.65 0.2 280)"
+          <LinkCard
+            title="项目"
+            desc="想法的实现"
+            url="/project"
+            icon="lucide:code"
           />
 
-          <FeatureCard
-            title="MDX Support"
-            description="Write your content in MDX with full support for React components and JSX."
-            icon="lucide:file-code"
-            color="oklch(0.6 0.2 160)"
+          <LinkCard
+            title="关于"
+            desc="'我'与博客"
+            url="/about"
+            icon="lucide:user"
           />
 
-          <FeatureCard
-            title="SEO Optimized"
-            description="Built-in SEO optimization with meta tags, OpenGraph, and JSON-LD."
-            icon="lucide:search"
-            color="oklch(0.6 0.2 200)"
-          />
-
-          <FeatureCard
-            title="Fast Performance"
-            description="Optimized for speed with lazy loading, code splitting, and minimal JavaScript."
-            icon="lucide:zap"
-            color="oklch(0.8 0.2 80)"
-          />
-
-          <FeatureCard
-            title="Customizable"
-            description="Easily customize the theme to match your personal brand and preferences."
-            icon="lucide:palette"
-            color="oklch(0.7 0.2 10)"
+          <LinkCard
+            title="友链"
+            desc="有趣的灵魂"
+            url="/friend"
+            icon="lucide:link"
           />
         </div>
       </section>
 
-      <!-- Quick Start -->
+      <!-- Let's Play Section -->
       <section class="py-6">
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-          <Icon name="lucide:rocket" class="w-6 h-6 text-primary" />
-          <span>Quick Start</span>
+          <Icon name="lucide:gamepad" class="w-6 h-6 text-primary" />
+          <span>和我玩？</span>
         </h2>
 
         <div class="card bg-base-200 p-6">
-          <h3 class="text-xl font-bold mb-4">Get started in three simple steps:</h3>
-
-          <ol class="space-y-6 mb-6">
-            <li class="relative flex flex-col gap-4 items-start">
-              <div class="flex gap-4 items-center">
-                <div
-                  class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content flex-shrink-0"
-                >
-                  1
-                </div>
-                <h4 class="font-bold">Clone the repository</h4>
-              </div>
-              <div class="relative w-full">
-                <p class="text-base-content/70 mb-2">Use Git to clone the Frosti repository to your local machine:</p>
-                <div class="mockup-code text-sm mb-2">
-                  <pre><code>git clone --depth 1 https://github.com/EveSunMaple/Frosti.git Frosti</code></pre>
-                </div>
-              </div>
-            </li>
-
-            <li class="relative flex flex-col gap-4 items-start">
-              <div class="flex gap-4 items-center">
-                <div
-                  class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content flex-shrink-0"
-                >
-                  2
-                </div>
-                <h4 class="font-bold">Install dependencies</h4>
-              </div>
-              <div class="relative w-full">
-                <p class="text-base-content/70 mb-2">Navigate to the project directory and install dependencies:</p>
-                <div class="mockup-code text-sm mb-2">
-                  <pre><code>cd Frosti && npm install</code></pre>
-                </div>
-              </div>
-            </li>
-
-            <li class="relative flex flex-col gap-4 items-start">
-              <div class="flex gap-4 items-center">
-                <div
-                  class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-content flex-shrink-0"
-                >
-                  3
-                </div>
-                <h4 class="font-bold">Start the development server</h4>
-              </div>
-              <div class="relative w-full">
-                <p class="text-base-content/70 mb-2">Launch the local development server to see your blog:</p>
-                <div class="mockup-code text-sm mb-2">
-                  <pre><code>npm run search:index && npm run dev</code></pre>
-                </div>
-                <p class="text-base-content/70">
-                  Open your browser and navigate to <code class="bg-base-300 px-2 py-1 rounded"
-                    >http://localhost:4321</code
-                  > to see your blog in action!
-                </p>
-              </div>
-            </li>
-          </ol>
-
-          <div class="alert bg-primary/10 text-primary mb-0">
-            <Icon name="lucide:lightbulb" class="w-6 h-6" />
-            <span
-              >Check out the <a href="/blog" class="underline">blog section</a> for detailed guides and documentation.</span
+          <div class="flex flex-col gap-4">
+            <p class="text-lg mb-4">Hey，朋友，来看看我开设的MC服务器吗？</p>
+            <a 
+              href="https://play.mcmod.cn/sv20188110.html" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="btn btn-primary gap-2 self-start"
             >
+              <Icon name="lucide:server" class="w-5 h-5" />
+              <span>访问网站</span>
+            </a>
+            <div class="divider"></div>
+            <div class="flex items-center gap-2 mt-4">
+              <Icon name="lucide:gamepad-2" class="w-5 h-5 text-primary" />
+              <span class="text-lg">我的Steam好友代码：<code>1263204075</code></span>
+            </div>
           </div>
         </div>
-      </section>
-
-      <!-- GitHub Stats -->
-      <section class="py-6">
-        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-          <Icon name="lucide:github" class="w-6 h-6 text-primary" />
-          <span>Repository Stats</span>
-        </h2>
-
-        <GitHubStats username="EveSunMaple" repositoryName="Frosti" showLanguages={true} showContributors={true} />
       </section>
     </div>
   </MainCard>

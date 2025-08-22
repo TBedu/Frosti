@@ -1,0 +1,107 @@
+---
+title: "用 Cloudflare Workers 搭建 GitHub 文件代理加速"
+description: "解决 GitHub 访问难题，从零开始搭建高效的文件代理加速服务，显著提升下载速度"
+pubDate: "2025-03-09"
+image: https://tse3-mm.cn.bing.net/th/id/OIP-C.ae2prUSZPLC2Ii0sl74TIAHaEK?rs=1&pid=ImgDetMain
+categories:
+  - 技术
+tags:
+  - Cloudflare
+  - 网络优化
+  - 开发工具
+---
+
+import LinkCard from "@/components/mdx/LinkCard.astro";
+import Warning from "@/components/mdx/Warning.astro";
+
+在国内网络环境下，访问 GitHub 常常面临速度缓慢甚至连接不稳定的问题，尤其是在下载大型仓库或发布文件时更为明显。
+
+本文将详细介绍如何利用 Cloudflare Workers 搭建一套高效的 GitHub 文件代理加速服务，帮助你轻松解决这一痛点。
+
+---
+
+## 项目介绍  
+
+本教程将基于 hunshcn 开发的开源项目 gh-proxy 实现，这是一个专为加速 GitHub Release、archive 及项目文件下载而设计的工具。
+
+> **gh-proxy**  
+项目地址：[https://github.com/hunshcn/gh-proxy](https://github.com/hunshcn/gh-proxy)  
+
+---
+
+## 准备工作
+
+首先，你需要拥有一个 Cloudflare 账号。如果你还没有账号，可以按照以下教程进行注册：
+
+<LinkCard
+  title="Cloudflare教程：如何注册账户、购买域名、开启免费CDN服务？"
+  desc="作者 – 椅栏听风"
+  url="https://oyouoo.com/cloudflare-tutorial/"
+  img="https://oyouoo.com/wp-content/uploads/2024/12/avatar-logo-150x150.png"
+  target="_blank"
+/>
+
+---
+
+## 教程
+
+注册好之后，新建一个 Workers
+
+### 步骤1：创建 Workers 服务
+
+1. 登录 Cloudflare 控制台后，在左侧导航栏向下滑动找到相关服务  
+![QQ20250112-201443.png](https://www.helloimg.com/i/2025/01/12/6783b29033266.png)
+
+2. 点击 `Workers 和 Pages` 进入服务管理页面  
+![QQ20250112-201733.png](https://www.helloimg.com/i/2025/01/12/6783b28f7a17e.png)
+
+3. 点击 `创建` 按钮开始新建 Workers 服务  
+![QQ20250112-201830.png](https://www.helloimg.com/i/2025/01/12/6783b29045551.png)
+
+4. 完成创建后，进入 Workers 服务详情页，点击 `编辑代码` 按钮  
+![QQ20250112-203027.png](https://www.helloimg.com/i/2025/01/12/6783b5a2d43e0.png)
+
+5. 复制 [gh-proxy 项目的源代码](https://cdn.jsdelivr.net/gh/hunshcn/gh-proxy@master/index.js) 到代码编辑区域，然后点击 `部署` 按钮完成部署（注：界面可能会因 Cloudflare 后台更新而略有差异）  
+![QQ20250112-203142.png](https://www.helloimg.com/i/2025/01/12/6783b5a331ede.png)
+
+6. 配置自定义域名：由于 Cloudflare 提供的默认域名（xxx.workers.dev）在国内网络环境下可能无法访问，建议配置自定义域名。进入 `设置 > 域和路由`，添加已托管在 Cloudflare 的域名。配置完成后，Cloudflare 会自动完成二级域名解析和 HTTPS 配置  
+![QQ20250112-205004.png](https://www.helloimg.com/i/2025/01/12/6783b9de73733.png)
+
+### 附录：自定义主页（可选）
+
+如果你希望为代理服务添加自定义的网页界面，可以修改代码中的 `ASSET_URL` 变量：
+
+```js
+const ASSET_URL = 'https://hunshcn.github.io/gh-proxy/'
+```
+
+将 `https://hunshcn.github.io/gh-proxy/` 替换为你托管的HTML页面地址，例如：`https://www.tbedu.top/assets/pages/gh-proxy/`
+
+## 使用方法
+
+配置完成后，你可以通过以下方式使用 GitHub 文件代理加速服务：
+
+如果你自定义的域名是 github.tbedu.top，那么访问格式为：`https://github.tbedu.top/[完整的GitHub文件地址]`
+
+例如：[https://github.tbedu.top/https://github.com/EasyTier/EasyTier/releases/download/v2.2.0/easytier-windows-x86_64-v2.2.0.zip](https://github.tbedu.top/https://github.com/EasyTier/EasyTier/releases/download/v2.2.0/easytier-windows-x86_64-v2.2.0.zip)
+
+## 性能测试
+
+以下是使用该代理服务的测速结果（测试时间：2025/01/12）：
+
+![QQ截图20250112205638.png](https://www.helloimg.com/i/2025/01/12/6783bc021fa38.png)  
+![QQ截图20250112205741.png](https://www.helloimg.com/i/2025/01/12/6783bc05ea371.png)  
+
+<Warning>请注意，Cloudflare 的免费账户有每日 10 万次请求的限制。如果用于代理网页访问，请求量可能较大，请留意使用量</Warning>
+
+## 示例服务
+
+如果你想直接体验，可以访问笔者搭建的 GitHub 文件代理服务：
+
+<LinkCard
+  title="GitHub下载加速"
+  desc="提供稳定可靠的GitHub文件下载加速服务"
+  url="https://www.tbedu.top/gh-proxy/"
+  img="https://www.helloimg.com/i/2025/01/12/6783841a2aa9e.png"
+  target="_blank"
+/>

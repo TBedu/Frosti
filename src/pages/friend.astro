@@ -7,15 +7,16 @@ import FriendCard from "@/components/mdx/FriendCard.astro";
 import Card from "@/components/temple/Card.astro";
 import CardGroup from "@/components/temple/CardGroup.astro";
 import Showcase from "@/components/mdx/Showcase.astro";
+import Waline from "@/components/comments/Waline.astro";
 
-const sites = [{ name: "Frosti Demo", url: "https://frosti.saroprock.com/" }];
+const sites = [{ name: "FeltSquirrel727", url: "https://blog.tbedu.top" }];
 ---
 
-<BaseLayout title="Friends">
+<BaseLayout title="友链">
   <CardGroup cols="1">
     <MainCard
       title="Friends & Resources"
-      description="A collection of links to friends, technologies, and contributors to the Frosti project."
+      description="我的好友、技术资源链接的集合。"
       textOverlay="FRIENDS"
       infoIcon="lucide:link"
     >
@@ -24,39 +25,32 @@ const sites = [{ name: "Frosti Demo", url: "https://frosti.saroprock.com/" }];
         <section>
           <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
             <Icon name="lucide:users" class="w-6 h-6 text-primary" />
-            <span>Friends</span>
+            <span>好友</span>
           </h2>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <FriendCard
-              name="Lyme Blurred"
-              avatar="https://github.com/lymeblurred.png"
-              description="Building, breaking, and learning daily | A copy of EveSunMaple"
-              url="https://github.com/lymeblurred"
+              name="EveSunMaple"
+              avatar="https://github.com/EveSunMaple.png"
+              description="这个主题的作者"
+              url="https://www.saroprock.com/"
               type="friend"
             />
             <FriendCard
-              name="梦凌汐"
-              avatar="https://github.com/MeowLynxSea.png"
-              description="来自星辰边缘的猫猫~爱好是睡觉awa"
-              url="https://github.com/MeowLynxSea"
-              type="friend"
-            />
-            <FriendCard
-              name="颜涂楷睿"
-              avatar="https://github.com/SnowFoxqwq.png"
-              description="你好，我是雪狐~"
-              url="https://github.com/SnowFoxqwq"
+              name="Fanzhuo's blog"
+              avatar="https://blog.fanzhuo.xyz/favicon.ico"
+              description="记录生活，题目、算法讲解……"
+              url="https://blog.fanzhuo.xyz/"
               type="friend"
             />
           </div>
         </section>
 
         <!-- Contributors Section -->
-        <section>
+        <!--<section>
           <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
             <Icon name="lucide:git-pull-request" class="w-6 h-6 text-primary" />
-            <span>Contributors</span>
+            <span>贡献者</span>
           </h2>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -124,13 +118,13 @@ const sites = [{ name: "Frosti Demo", url: "https://frosti.saroprock.com/" }];
               type="contributor"
             />
           </div>
-        </section>
+        </section>-->
 
         <!-- Useful Resources Section -->
         <section>
           <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
             <Icon name="lucide:bookmark" class="w-6 h-6 text-primary" />
-            <span>Useful Resources</span>
+            <span>实用资源</span>
           </h2>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -168,7 +162,7 @@ const sites = [{ name: "Frosti Demo", url: "https://frosti.saroprock.com/" }];
           </div>
         </section>
 
-        <div class="divider my-8">
+        <!--<div class="divider my-8">
           <Icon name="lucide:heart" class="w-10 h-10 text-primary" />
         </div>
 
@@ -185,7 +179,7 @@ const sites = [{ name: "Frosti Demo", url: "https://frosti.saroprock.com/" }];
             <Icon name="lucide:github" class="w-5 h-5" />
             <span>Contribute on GitHub</span>
           </a>
-        </div>
+        </div>-->
       </div>
     </MainCard>
     <Card>
@@ -195,25 +189,30 @@ const sites = [{ name: "Frosti Demo", url: "https://frosti.saroprock.com/" }];
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
               <h2 class="text-2xl font-bold flex items-center gap-2">
                 <Icon name="lucide:layout-template" class="w-6 h-6 text-primary" />
-                <span>Sites Using Frosti</span>
+                <span>友链</span>
               </h2>
               <a
-                href="https://github.com/EveSunMaple/Frosti/edit/main/src/pages/friend.astro"
+                href="https://github.com/TBedu/Frosti/edit/main/src/pages/friend.astro"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn btn-sm btn-outline btn-primary gap-2"
               >
                 <Icon name="lucide:plus-circle" class="w-4 h-4" />
-                Add Your Site
+                添加友链
               </a>
             </div>
             <p class="text-base-content/70 mb-6">
-              Here is a list of sites built with Frosti. Want to get your site listed? Click the "Add Your Site" button
-              in the top right to edit this page by submitting a Pull Request!
+              想将自己的站点添加到这里吗？点击右侧的 "添加友链" 按钮，通过提交 Pull Request 来编辑本页面！
+            </p>
+            <p class="text-base-content/70 mb-6">
+              或者在下方评论
             </p>
             <div class="flex flex-wrap items-center gap-3">
               {sites.map((site) => <Showcase name={site.name} url={site.url} />)}
             </div>
+          </section>
+          <section class="comments">
+            <Waline reaction={false} />
           </section>
         </div>
       </div>
