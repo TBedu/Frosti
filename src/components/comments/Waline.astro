@@ -54,7 +54,7 @@ const {
 
   let walineInstance;
 
-  async function mountWaline() {
+  async function initWaline() {
     if (walineInstance) {
       await walineInstance.destroy();
     }
@@ -72,13 +72,15 @@ const {
     });
   }
 
-  document.addEventListener("astro:after-swap", () => {
-    mountWaline();
+  document.addEventListener("astro:page-load", () => {
+    initWaline();
   });
 
-  document.addEventListener("DOMContentLoaded", () => {
-    mountWaline();
-  });
+  if (document.readyState !== "loading") {
+    initWaline();
+  } else {
+    document.addEventListener("DOMContentLoaded", initWaline);
+  }
 </script>
 
 <style>
